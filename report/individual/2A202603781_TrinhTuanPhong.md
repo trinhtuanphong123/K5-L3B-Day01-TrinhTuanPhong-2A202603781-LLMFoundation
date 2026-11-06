@@ -83,3 +83,19 @@ Ba dự đoán `predict(...)` lệch nhiều nhất:
 ## 7. AI log và điều đã học
 
 *Mỗi lần dùng AI: hỏi gì, nhận gì, bạn sửa gì. Sau đó 2–3 câu: điều bạn hiểu ra hôm nay mà trước đó chưa hiểu.*
+
+
+
+| Nội dung sử dụng AI | AI đã hỗ trợ | Điều chỉnh và kiểm chứng |
+|---|---|---|
+| Xây dựng prompt phân loại bằng LLM | Hỗ trợ giải thích và xây dựng prompt zero-shot, few-shot để phân loại tin nhắn thành spam hoặc ham. | Kiểm tra prompt và đối chiếu kết quả phân loại với nhãn thực tế. |
+| Cấu hình gọi LLM qua API | Hỗ trợ tìm hiểu các tham số như `temperature`, `max_tokens` và cơ chế `retry_with_backoff`. | Kiểm tra phản hồi từ API, điều chỉnh giới hạn token để tránh phản hồi bị cắt cụt. |
+| Phân tích kết quả LLM | Hỗ trợ diễn giải F1-score, độ trễ, chi phí API và sự khác biệt giữa zero-shot và few-shot. | Đối chiếu các nhận định với kết quả thực nghiệm trong notebook. |
+| Xử lý đầu ra JSON | Hỗ trợ xây dựng prompt yêu cầu LLM trả về JSON và cách kiểm tra, trích xuất nhãn từ phản hồi. | Kiểm tra tính hợp lệ của JSON, khả năng parse nhãn và kết quả phân loại trên các mẫu thử nghiệm. |
+
+### Điều đã học
+
+Qua bài thực hành, tôi hiểu rõ hơn cách sử dụng LLM thông qua API cho bài toán phân loại văn bản. Việc thiết kế prompt có ảnh hưởng trực tiếp đến chất lượng đầu ra. Zero-shot cho phép mô hình thực hiện nhiệm vụ mà không cần cung cấp ví dụ cụ thể, trong khi few-shot bổ sung các ví dụ minh họa để định hướng cách phân loại.
+
+Tôi cũng nhận ra rằng khi triển khai LLM qua API, cần đánh giá đồng thời chất lượng dự đoán, độ trễ và chi phí sử dụng. Ngoài ra, việc kiểm soát định dạng đầu ra rất quan trọng. Nếu mô hình trả về nội dung không đúng định dạng hoặc bị giới hạn token, chương trình có thể không trích xuất được nhãn dù phản hồi vẫn được API trả về. Vì vậy, cần kiểm tra cả phản hồi gốc và kết quả parse trước khi đánh giá hiệu năng của mô hình.
+
